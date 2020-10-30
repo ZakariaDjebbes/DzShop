@@ -1,13 +1,13 @@
+using API.Extensions;
 using API.Helpers;
+using API.Middleware;
 using AutoMapper;
-using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace API
 {
@@ -24,29 +24,26 @@ namespace API
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers();
-			services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 			services.AddAutoMapper(typeof(MappingProfiles));
-			services.AddScoped<IProductRepository, ProductRepository>();
 			services.AddDbContext<StoreContext>(ctx =>
 			{
 				ctx.UseSqlite(_config.GetConnectionString("DefaultConnection"));
 			});
+
+			services.AddSwaggerDocumentation();
+			services.AddApplicationServices();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
-
+			app.UseMiddleware<ExceptionMiddleware>();
+			app.UseStatusCodePagesWithReExecute("/error/{0}");
 			app.UseHttpsRedirection();
-
 			app.UseRouting();
 			app.UseStaticFiles();
 			app.UseAuthorization();
-
+			app.UseSwaggerDocumentation();
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();
