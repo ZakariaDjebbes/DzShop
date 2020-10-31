@@ -24,6 +24,13 @@ namespace API
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers();
+			services.AddCors(opt =>
+			{
+				opt.AddPolicy("CorsPolicy", policy =>
+				{
+					policy.AllowAnyMethod().WithOrigins("https://localhost:4200");
+				});
+			});
 			services.AddAutoMapper(typeof(MappingProfiles));
 			services.AddDbContext<StoreContext>(ctx =>
 			{
@@ -42,6 +49,7 @@ namespace API
 			app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseStaticFiles();
+			app.UseCors("CorsPolicy");
 			app.UseAuthorization();
 			app.UseSwaggerDocumentation();
 			app.UseEndpoints(endpoints =>
