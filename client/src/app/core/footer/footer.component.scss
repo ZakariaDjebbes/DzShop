@@ -1,0 +1,23 @@
+.container-fluid {
+  overflow: hidden;
+  color: #627482 !important;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+small {
+  font-size: 0.7em !important;
+}
+
+a.footer-link {
+  text-decoration: none;
+  color: #666a6e;
+  &.active {
+    color: #3ec4b8;
+  }
+
+  &:hover {
+    color: #3ec4b8;
+    transition: 0.3s;
+  }
+}
