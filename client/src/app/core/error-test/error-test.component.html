@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-12 p-2">
+            <input type="button" value="500 Error" class="btn btn-outline-info" (click) = "get500Error()">
+        </div>
+        <div class="col-lg-3 col-md-6 col-12 p-2">
+            <input type="button" value="404 Error" class="btn btn-outline-info" (click) = "get404Error()">
+        </div>
+        <div class="col-lg-3 col-md-6 col-12 p-2">
+            <input type="button" value="400 Error" class="btn btn-outline-info" (click) = "get400Error()">
+        </div>
+        <div class="col-lg-3 col-md-6 col-12 p-2">
+            <input type="button" value="400 Validation Error" class="btn btn-outline-info" (click) = "get400ValError()">
+        </div>
+    </div>
+    <div class="row mt-3" *ngIf="validationErrors">
+        <ul class="text-danger">
+            <li *ngFor="let error of validationErrors">{{error}}</li>
+        </ul>
+    </div>
+</div>

@@ -5,18 +5,29 @@ import { RouterModule } from '@angular/router';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './footer/footer.component';
+import { ErrorTestComponent } from './error-test/error-test.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { ServerErrorComponent } from './server-error/server-error.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
   declarations: [
     NavBarComponent,
-    FooterComponent
+    FooterComponent,
+    ErrorTestComponent,
+    NotFoundComponent,
+    ServerErrorComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     CollapseModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
   ],
   exports: [
     NavBarComponent,
