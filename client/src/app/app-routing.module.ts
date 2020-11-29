@@ -6,12 +6,12 @@ import { ServerErrorComponent } from './core/server-error/server-error.component
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'error-test', component: ErrorTestComponent},
-  {path: 'server-error', component: ServerErrorComponent},
-  {path: 'not-found', component: NotFoundComponent},
-  {path: 'shop', loadChildren: () => import('./shop/shop.module').then(mod => mod.ShopModule)},
-  {path: '**', redirectTo: '', pathMatch: 'full'}
+  {path: '', component: HomeComponent, data: { breadcrumb: 'Home' }},
+  {path: 'error-test', component: ErrorTestComponent, data: { breadcrumb: 'Error Testing' }},
+  {path: 'server-error', component: ServerErrorComponent, data: { breadcrumb: '500 Server Error' }},
+  {path: 'not-found', component: NotFoundComponent, data: { breadcrumb: '404 Not Found Error' }},
+  {path: 'shop', loadChildren: () => import('./shop/shop.module').then(mod => mod.ShopModule), data: { breadcrumb: 'Shop' }},
+  {path: '**', redirectTo: 'not-found', pathMatch: 'full'}
 ];
 
 @NgModule({

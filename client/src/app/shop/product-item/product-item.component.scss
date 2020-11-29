@@ -1,9 +1,60 @@
-.btn-group
+.btn
 {
+    width: 30%;
+    height: 40px;
+}
+
+.product-image {
+    background-color: darkgrey;
+    height: 250px; 
     width: 100%;
 }
 
-.btn
-{
-    width: 50%;
+.product-link {
+    color: #343a40;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+        color: #3ec4b8;
+        transition: all 0.3s;
+    }
+}
+
+.image {
+    cursor: pointer;
+
+    & :hover {
+        opacity: 1;
+
+        & button {
+            opacity: 1;
+            transform: none;
+        }
+    }
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba($color: #FFFFFF, $alpha: 0.5);
+    opacity: 0;
+    transition: all 0.5s;
+
+    & button {
+        z-index: 1000;
+        transition: all 0.5s;
+    } 
+
+    & button:first-of-type {
+        transform: translateX(-20px);
+    }
+
+    & button:last-of-type {
+        transform: translateX(20px);
+    }
 }

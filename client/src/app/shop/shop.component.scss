@@ -1,0 +1,15 @@
+.list-group .list-group-item {
+    cursor: pointer;
+    transition: 0.15s;
+
+    &:hover:not(.active) {
+        background-color: rgba($color: #3ec4b8, $alpha: .2);
+        border-color: rgba($color: #3ec4b8, $alpha: .2);
+        transition: 0.15s;
+    }
+    
+    &.active {
+        background-color: #3ec4b8;
+        border-color: #3ec4b8;
+    }
+}    
