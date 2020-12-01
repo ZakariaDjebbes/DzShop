@@ -1,8 +1,14 @@
-i.i-product-count{
-    font-size: 1.5em;
-    cursor: pointer;
+.i-product-count {
+    color: rgb(196, 196, 196);
+    transition: 0.3s all;
+    font-size: 1.5rem;
+    
+    &:hover {
+      color: #3ec4b8;
+      cursor: pointer;
+    }
 }
-
+  
 #product-count{
     font-size: 1.25em;
 }

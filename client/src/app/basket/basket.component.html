@@ -1,0 +1,108 @@
+<div class="container mt-5">
+    <div id="noItems" class="text-center" *ngIf="(basket$ | async) === null">
+            <i class="d-block fa fa-cart-plus" style="font-size: 100px;"></i>
+            <p class="text-dark mt-5 font-weight-bold d-block">
+                Your cart is empty... :(
+                <br>
+                <small>Visit the shop to add items to your shopping cart!</small>
+            </p>
+            <a routerLink="/shop" class="btn btn-lg btn-outline-info d-inline-block"><i class="fa fa-shopping-cart fa-lg"></i> Visit the shop!</a>
+    </div>
+    <div id="basketItems" *ngIf="(basket$ | async) as basket">
+        <div class="px-4 px-lg-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 px-4 pt-4 bg-light rounded shadow-sm mb-4">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="border-0 table-title">
+                                            <div class="p-2 px-3 text-uppercase">Product</div>
+                                        </th>
+                                        <th scope="col" class="border-0 table-title">
+                                            <div class="py-2 text-uppercase">Price</div>
+                                        </th>
+                                        <th scope="col" class="border-0 table-title">
+                                            <div class="py-2 text-uppercase">Total</div>
+                                        </th>
+                                        <th scope="col" class="border-0 table-title">
+                                            <div class="py-2 text-uppercase text-center">Quantity</div>
+                                        </th>
+                                        <th scope="col" class="border-0 table-title">
+                                            <div class="py-2 text-uppercase text-center">Remove</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of basket.items">
+                                        <th scope="row" class="border-0">
+                                            <div class="p-2">
+                                                <img src="{{item.pictureUrl}}" alt="{{item.productName}}" width="70"
+                                                    class="img-fluid rounded shadow-sm">
+                                                <div class="ml-3 d-inline-block align-middle">
+                                                    <h5 class="mb-0">
+                                                        <a routerLink="/shop/{{item.id}}"
+                                                            class="d-inline-block align-middle product-link">
+                                                            {{item.productName}}
+                                                        </a>
+                                                    </h5>
+                                                    <span class="text-muted font-weight-normal font-italic d-block">
+                                                        Type: {{item.type}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td class="border-0 align-middle">
+                                            <strong>{{item.price | currency}}</strong>
+                                        </td>
+                                        <td class="border-0 align-middle">
+                                            <strong>{{(item.price * item.quantity) | currency}}</strong></td>
+                                        <td class="border-0 align-middle text-center">
+                                            <i (click)="decrementItem(item)"
+                                                class="fa fa-minus-circle i-product-count"></i>
+                                            <span class="mx-2 font-weight-bold" id="product-count">
+                                                <strong>{{item.quantity}}</strong>
+                                            </span>
+                                            <i (click)="incrementItem(item)"
+                                                class="fa fa-plus-circle i-product-count"></i>
+                                        </td>
+                                        <td class="border-0 align-middle text-center"><a class="text-danger"><i
+                                                    (click)="removeItem(item)" class="trash-icon fa fa-trash fa-2x"></i></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-6 shadow-sm mb-4 bg-light py-4">
+                        <app-order-totals></app-order-totals>
+                        <a routerLink="/checkout" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 
+<div class="row py-5 p-4 bg-white rounded shadow-sm">
+    <div class="col-lg-6">
+      <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Coupon code</div>
+      <div class="p-4">
+        <p class="font-italic mb-4">If you have a coupon code, please enter it in the box below</p>
+        <div class="input-group mb-4 border rounded-pill p-2">
+          <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0">
+          <div class="input-group-append border-0">
+            <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
+          </div>
+        </div>
+      </div>
+      <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions for seller</div>
+      <div class="p-4">
+        <p class="font-italic mb-4">If you have some information for the seller you can leave them in the box below</p>
+        <textarea name="" cols="30" rows="2" class="form-control"></textarea>
+      </div>
+    </div>
+  </div> -->

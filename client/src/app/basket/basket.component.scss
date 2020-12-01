@@ -1,0 +1,27 @@
+.table-title {
+  background-color: rgb(196, 196, 196);
+}
+
+.i-product-count {
+  color: rgb(196, 196, 196);
+  transition: 0.3s all;
+
+  &:hover {
+    color: #3ec4b8;
+    cursor: pointer;
+  }
+}
+
+.trash-icon{
+  cursor: pointer;
+}
+
+.product-link {
+  color: #343a40;
+  text-decoration: none;
+  transition: 0.3s all;
+
+  &:hover {
+    color: #3ec4b8;
+  }
+}

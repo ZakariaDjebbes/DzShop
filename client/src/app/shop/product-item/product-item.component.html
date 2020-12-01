@@ -2,7 +2,7 @@
     <div class="image position-relative">
         <img src="{{product.pictureUrl}}" alt="{{product.name}}" class="img-fluid product-image">
         <div class="d-flex align-items-center justify-content-center overlay">
-            <button type="button" class="btn btn-info text-light fa fa-shopping-cart mr-2">
+            <button (click)="addItemToBasket()" type="button" class="btn btn-info text-light fa fa-shopping-cart mr-2">
             </button>
             <button type="button" routerLink="/shop/{{product.id}}" class="btn btn-info text-light">
                 View
