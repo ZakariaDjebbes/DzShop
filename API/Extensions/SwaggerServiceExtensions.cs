@@ -15,6 +15,31 @@ namespace API.Extensions
 					Title = "MedSupply API",
 					Version = "V1"
 				});
+
+				var securitySchema = new OpenApiSecurityScheme
+				{
+					Description = "JWT Auth Bearer scheme",
+					Name = "Authorization",
+					In = ParameterLocation.Header,
+					Type = SecuritySchemeType.Http,
+					Scheme = "bearer",
+					Reference = new OpenApiReference
+					{
+						Type = ReferenceType.SecurityScheme,
+						Id = "Bearer"
+					}
+				};
+
+				options.AddSecurityDefinition("Bearer", securitySchema);
+
+				var securityRequirements = new OpenApiSecurityRequirement
+				{
+					{
+						securitySchema, new [] {"Bearer"}
+					}
+				};
+
+				options.AddSecurityRequirement(securityRequirements);
 			});
 
 			return services;
