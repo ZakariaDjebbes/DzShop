@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from './account/account.service';
 import { BasketService } from './basket/basket.service';
 
 @Component({
@@ -9,9 +10,14 @@ import { BasketService } from './basket/basket.service';
 export class AppComponent implements OnInit{
   title = 'MedSupply';
 
-  constructor(private basketService: BasketService) { }
+  constructor(private basketService: BasketService, private accountService: AccountService) { }
 
   ngOnInit(): void {
+    this.loadBasket();
+    this.loadUser();
+  }
+
+  private loadBasket(): void {
     const basketId = localStorage.getItem('basket-id');
 
     if (basketId) {
@@ -21,5 +27,15 @@ export class AppComponent implements OnInit{
         console.error(error);
       });
     }
+  }
+
+  private loadUser(): void {
+    const token = localStorage.getItem('token');
+
+    this.accountService.loadCurrentUser(token).subscribe(() => {
+        console.log('user loaded');
+      }, error => {
+        console.error(error);
+      });
   }
 }
