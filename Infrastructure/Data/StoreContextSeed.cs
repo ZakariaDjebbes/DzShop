@@ -4,6 +4,7 @@ using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Core.Entities;
+using Core.Entities.Order;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Logging;
 
@@ -14,8 +15,10 @@ namespace Infrastructure.Data
 		private const string PRODUCTS_BRANDS_PATH = "../Infrastructure/Data/SeedData/brands.json";
 		private const string PRODUCTS_TYPES_PATH = "../Infrastructure/Data/SeedData/types.json";
 		private const string PRODUCTS_PATH = "../Infrastructure/Data/SeedData/products.json";
+		private const string DELIVERY_METHOD_PATH = "../Infrastructure/Data/SeedData/delivery.json";
+		
 
-		public static async Task SeedAsync(StoreContext context, ILoggerFactory loggerFactory)
+        public static async Task SeedAsync(StoreContext context, ILoggerFactory loggerFactory)
 		{
 			try
 			{
@@ -53,6 +56,19 @@ namespace Infrastructure.Data
 					foreach (var product in products)
 					{
 						context.Products.Add(product);
+					}
+
+					await context.SaveChangesAsync();
+				}
+
+				if (!context.DeliveryMethods.Any())
+				{
+					var dmData = File.ReadAllText(DELIVERY_METHOD_PATH);
+					var dms = JsonSerializer.Deserialize<List<DeliveryMethod>>(dmData);
+
+					foreach (var dm in dms)
+					{
+						context.DeliveryMethods.Add(dm);
 					}
 
 					await context.SaveChangesAsync();

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
-using Microsoft.DotNet.PlatformAbstractions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
@@ -18,12 +17,22 @@ namespace Infrastructure.Data
 			_context = context;
 		}
 
-		public async Task<int> CountAsync(ISpecification<T> specification)
+        public void Add(T entity)
+        {
+			_context.Set<T>().Add(entity);
+        }
+
+        public async Task<int> CountAsync(ISpecification<T> specification)
 		{
 			return await ApplySpecification(specification).CountAsync();
 		}
 
-		public async Task<T> GetByIdAsync(int id)
+        public void Delete(T enity)
+        {
+			_context.Set<T>().Remove(enity);
+        }
+
+        public async Task<T> GetByIdAsync(int id)
 		{
 			return await _context.Set<T>().FindAsync(id);
 		}
@@ -43,7 +52,13 @@ namespace Infrastructure.Data
 			return await ApplySpecification(specification).ToListAsync();
 		}
 
-		private IQueryable<T> ApplySpecification(ISpecification<T> specification)
+        public void Update(T entity)
+        {
+			_context.Set<T>().Attach(entity);
+			_context.Entry(entity).State = EntityState.Modified;
+        }
+
+        private IQueryable<T> ApplySpecification(ISpecification<T> specification)
 		{
 			return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), specification); 
 		}
