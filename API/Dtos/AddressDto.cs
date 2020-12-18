@@ -13,7 +13,7 @@ namespace API.Dtos
 		[Required]
 		public string Street { get; set; }
 		[Required]
-		public string ZipCode { get; set; }
+		public string Zipcode { get; set; }
 		[Required]
 		public string Country { get; set; }
 	}

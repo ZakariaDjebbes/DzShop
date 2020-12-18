@@ -1,0 +1,62 @@
+<ng-container *ngIf="(basket$ | async) as basket">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="border-0" [class.table-title] = "isFunctionalityEnabled">
+                        <div class="p-2 px-3 text-uppercase">Product</div>
+                    </th>
+                    <th scope="col" class="border-0" [class.table-title] = "isFunctionalityEnabled">
+                        <div class="py-2 text-uppercase">Price</div>
+                    </th>
+                    <th scope="col" class="border-0" [class.table-title] = "isFunctionalityEnabled">
+                        <div class="py-2 text-uppercase">Total</div>
+                    </th>
+                    <th scope="col" class="border-0" [class.table-title] = "isFunctionalityEnabled">
+                        <div class="py-2 text-uppercase text-center">Quantity</div>
+                    </th>
+                    <th *ngIf="isFunctionalityEnabled" scope="col" class="border-0 table-title">
+                        <div class="py-2 text-uppercase text-center">Remove</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of basket.items">
+                    <th scope="row" class="border-0">
+                        <div class="p-2">
+                            <img src="{{item.pictureUrl}}" alt="{{item.productName}}" width="70"
+                                class="img-fluid rounded shadow-sm">
+                            <div class="ml-3 d-inline-block align-middle">
+                                <h5 class="mb-0">
+                                    <a routerLink="/shop/{{item.id}}"
+                                        class="d-inline-block align-middle product-link">
+                                        {{item.productName}}
+                                    </a>
+                                </h5>
+                                <span class="text-muted font-weight-normal font-italic d-block">
+                                    Type: {{item.type}}
+                                </span>
+                            </div>
+                        </div>
+                    </th>
+                    <td class="border-0 align-middle">
+                        <strong>{{item.price | currency}}</strong>
+                    </td>
+                    <td class="border-0 align-middle">
+                        <strong>{{(item.price * item.quantity) | currency}}</strong></td>
+                    <td class="border-0 align-middle text-center">
+                        <i *ngIf="isFunctionalityEnabled" (click)="decrementItem(item)"
+                            class="fa fa-minus-circle i-product-count"></i>
+                        <span class="mx-2 font-weight-bold" id="product-count">
+                            <strong>{{item.quantity}}</strong>
+                        </span>
+                        <i *ngIf="isFunctionalityEnabled" (click)="incrementItem(item)"
+                            class="fa fa-plus-circle i-product-count"></i>
+                    </td>
+                    <td *ngIf="isFunctionalityEnabled" class="border-0 align-middle text-center"><a class="text-danger"><i
+                                (click)="deleteItem(item)" class="trash-icon fa fa-trash fa-2x"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-container>

@@ -3,6 +3,6 @@ export interface IAddress {
     lastName: string;
     city: string;
     street: string;
-    zipCode: string;
+    zipcode: string;
     country: string;
 }

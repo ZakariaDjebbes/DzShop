@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Basket, IBasket, IBasketItem, IBasketTotals } from '../shared/models/basket';
+import { IDeliveryMethod } from '../shared/models/deliveryMethod';
 import { IProduct } from '../shared/models/product';
 
 @Injectable({
@@ -11,6 +12,7 @@ import { IProduct } from '../shared/models/product';
 })
 export class BasketService {
   baseUrl = environment.apiUrl;
+  shipping = 0.0;
   private basketSource = new BehaviorSubject<IBasket>(null);
   private basketTotalSource = new BehaviorSubject<IBasketTotals>(null);
 
@@ -18,6 +20,11 @@ export class BasketService {
   public basketTotal$ = this.basketTotalSource.asObservable();
 
   constructor(private http: HttpClient) { }
+
+  public setShippingPrice(deliveryMethod: IDeliveryMethod): void {
+    this.shipping = deliveryMethod.price;
+    this.calculateTotals();
+  }
 
   // tslint:disable-next-line: typedef
   public getBasket(id: string) {
@@ -40,6 +47,13 @@ export class BasketService {
         console.log(error);
       }
     );
+  }
+
+  // tslint:disable-next-line: typedef
+  public deleteLocalBasket(id: string) {
+    this.basketSource.next(null);
+    this.basketTotalSource.next(null);
+    localStorage.removeItem('basket_id');
   }
 
   // tslint:disable-next-line: typedef
@@ -133,7 +147,7 @@ export class BasketService {
 
   private calculateTotals(): void {
     const basket = this.getCurrentBasketValue();
-    const shipping = 0;
+    const shipping = this.shipping;
     const subtotal = basket.items.reduce((value, item) => (item.quantity * item.price) + value, 0);
     const total = subtotal + shipping;
 
