@@ -53,7 +53,7 @@ export class BasketService {
   public deleteLocalBasket(id: string) {
     this.basketSource.next(null);
     this.basketTotalSource.next(null);
-    localStorage.removeItem('basket_id');
+    localStorage.removeItem('basket-id');
   }
 
   // tslint:disable-next-line: typedef

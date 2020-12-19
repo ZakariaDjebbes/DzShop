@@ -1,0 +1,23 @@
+<ng-container *ngIf="orders">
+  <div class="container mt-4">
+      <h3 class="my-4">Your orders</h3>
+      <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Date</th>
+              <th scope="col">Total</th>
+              <th scrope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr routerLink="/orders/{{order.id}}" *ngFor="let order of orders">
+              <th scope="row"><strong>#{{order.id}}</strong></th>
+              <td>{{order.orderDate|date:'medium'}}</td>
+              <td>{{order.total|currency}}</td>
+              <td>{{order.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+</ng-container>

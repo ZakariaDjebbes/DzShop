@@ -2,5 +2,12 @@
     <div><i class="fa fa-check-circle text-success fa-5x"></i></div>
     <h2>Thank you. Your order is confirmed</h2>
     <p class="mb-4">Your order has not shipped yet, but this is to be expected as we are not a real store!</p>
-    <button class="btn btn-success">View your order</button>
+    
+    <ng-container *ngIf="order">
+        <button routerLink="/orders/{{order.id}}" class="btn btn-success">View your order</button>
+    </ng-container>
+    <ng-container *ngIf="!order">
+        <button routerLink="/orders" class="btn btn-success">View your orders</button>
+    </ng-container>
+    
 </div>
