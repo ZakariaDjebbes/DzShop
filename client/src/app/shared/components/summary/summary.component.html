@@ -10,10 +10,10 @@
                         <div class="py-2 text-uppercase">Price</div>
                     </th>
                     <th scope="col" class="border-0" [class.table-title] = "isFunctionalityEnabled">
-                        <div class="py-2 text-uppercase">Total</div>
+                        <div class="py-2 text-uppercase text-center">Quantity</div>
                     </th>
                     <th scope="col" class="border-0" [class.table-title] = "isFunctionalityEnabled">
-                        <div class="py-2 text-uppercase text-center">Quantity</div>
+                        <div class="py-2 text-uppercase">Total</div>
                     </th>
                     <th *ngIf="isFunctionalityEnabled" scope="col" class="border-0 table-title">
                         <div class="py-2 text-uppercase text-center">Remove</div>
@@ -42,8 +42,6 @@
                     <td class="border-0 align-middle">
                         <strong>{{item.price | currency}}</strong>
                     </td>
-                    <td class="border-0 align-middle">
-                        <strong>{{(item.price * item.quantity) | currency}}</strong></td>
                     <td class="border-0 align-middle text-center">
                         <i *ngIf="isFunctionalityEnabled" (click)="decrementItem(item)"
                             class="fa fa-minus-circle i-product-count"></i>
@@ -53,6 +51,8 @@
                         <i *ngIf="isFunctionalityEnabled" (click)="incrementItem(item)"
                             class="fa fa-plus-circle i-product-count"></i>
                     </td>
+                    <td class="border-0 align-middle">
+                        <strong>{{(item.price * item.quantity) | currency}}</strong></td>
                     <td *ngIf="isFunctionalityEnabled" class="border-0 align-middle text-center"><a class="text-danger"><i
                                 (click)="deleteItem(item)" class="trash-icon fa fa-trash fa-2x"></i></a></td>
                 </tr>

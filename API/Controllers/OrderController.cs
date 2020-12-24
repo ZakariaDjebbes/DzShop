@@ -66,5 +66,13 @@ namespace API.Controllers
 
             return Ok(methods);
         }
+
+        [HttpGet("deliveryMethod/{id}")]
+        public async Task<ActionResult<IReadOnlyList<DeliveryMethod>>> GetDeliveryMethod(int id)
+        {
+            var method = await _orderService.GetDeliveryMethodAsync(id);
+
+            return Ok(method);
+        }
     }
 }

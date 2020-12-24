@@ -21,9 +21,22 @@ export class BasketService {
 
   constructor(private http: HttpClient) { }
 
+  // tslint:disable-next-line: typedef
+  public createPaymentIntent()
+  {
+    return this.http.post(this.baseUrl + 'payment/' + this.getCurrentBasketValue().id, {}).pipe(
+      map((basket: IBasket) => {
+        this.basketSource.next(basket);
+      })
+    );
+  }
+
   public setShippingPrice(deliveryMethod: IDeliveryMethod): void {
     this.shipping = deliveryMethod.price;
+    const basket = this.getCurrentBasketValue();
+    basket.deliveryMethodId = deliveryMethod.id;
     this.calculateTotals();
+    this.setBasket(basket);
   }
 
   // tslint:disable-next-line: typedef
@@ -31,7 +44,25 @@ export class BasketService {
     return this.http.get(this.baseUrl + 'basket?id=' + id).pipe(
       map((basket: IBasket) => {
         this.basketSource.next(basket);
-        this.calculateTotals();
+
+        if (basket.deliveryMethodId !== null)
+        {
+          this.getDeliveryMethod(basket.deliveryMethodId).subscribe(
+            (res) => {
+              this.shipping = res.price;
+            },
+            (err) => {
+              console.error(err);
+            },
+            () => {
+              this.calculateTotals();
+            }
+          );
+        }
+        else
+        {
+          this.calculateTotals();
+        }
       })
     );
   }
@@ -50,11 +81,24 @@ export class BasketService {
   }
 
   // tslint:disable-next-line: typedef
-  public deleteLocalBasket(id: string) {
-    this.basketSource.next(null);
-    this.basketTotalSource.next(null);
-    localStorage.removeItem('basket-id');
+  public deleteBasket(basket: IBasket) {
+    this.shipping = 0.0;
+    return this.http.delete(this.baseUrl + 'basket?id=' + basket.id).subscribe(() => {
+      this.basketSource.next(null);
+      this.basketTotalSource.next(null);
+      localStorage.removeItem('basket-id');
+    }, error => {
+      console.log(error);
+    });
   }
+
+  // // tslint:disable-next-line: typedef
+  // public deleteLocalBasket() {
+  //   this.basketSource.next(null);
+  //   this.basketTotalSource.next(null);
+  //   this.shipping = 0.0;
+  //   localStorage.removeItem('basket-id');
+  // }
 
   // tslint:disable-next-line: typedef
   public addItemToBasket(item: IProduct, quantity = 1) {
@@ -110,14 +154,8 @@ export class BasketService {
   }
 
   // tslint:disable-next-line: typedef
-  private deleteBasket(basket: IBasket) {
-    return this.http.delete(this.baseUrl + 'basket?id=' + basket.id).subscribe(() => {
-      this.basketSource.next(null);
-      this.basketTotalSource.next(null);
-      localStorage.removeItem('basket-id');
-    }, error => {
-      console.log(error);
-    });
+  private getDeliveryMethod(id: number) {
+    return this.http.get<IDeliveryMethod>(this.baseUrl + 'order/deliveryMethod/' + id);
   }
 
   private mapProductToBasketITem(item: IProduct, quantity: number): IBasketItem {
@@ -147,10 +185,10 @@ export class BasketService {
 
   private calculateTotals(): void {
     const basket = this.getCurrentBasketValue();
-    const shipping = this.shipping;
     const subtotal = basket.items.reduce((value, item) => (item.quantity * item.price) + value, 0);
-    const total = subtotal + shipping;
+    const shipping = this.shipping;
 
+    const total = subtotal + shipping;
     this.basketTotalSource.next({
       shipping,
       total,

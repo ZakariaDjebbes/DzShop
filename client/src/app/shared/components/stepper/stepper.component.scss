@@ -1,25 +1,13 @@
-button.nav-link {
-    background: #c4c4c4;
-    border-radius: 0;
+button.nav-link{
     border: none;
+    border-radius: 0px;
+    background-color: #C4C4C4;
 
-    &:focus {
-        outline: none;
-        box-shadow: none !important;
+    &.active {
+        background-color: #3EC4B8 !important;
     }
-    &.active:hover {
-        color: white;
+    &:not(.active) {
+        color: #212529;
     }
-    & :active {
-        outline: none;
-    }
-    &.active:focus {
-        outline: none;
-    }
-    &:hover {
-        color: black;
-        background-color: rgba($color: #c4c4c4, $alpha: .8);
-    }
-
     transition: all 0.3s;
 }
