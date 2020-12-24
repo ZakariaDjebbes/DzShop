@@ -20,6 +20,11 @@ export class LoadingInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
 
+    if(request.method === 'DELETE')
+    {
+      return next.handle(request);
+    }
+
     if (request.url.includes('emailExists'))
     {
       return next.handle(request);
