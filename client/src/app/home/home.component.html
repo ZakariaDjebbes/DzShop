@@ -1,33 +1,58 @@
-<div class="jumbotron">
-    <h1 class="display-4 text-info">MedSupply.</h1>
-    <p class="lead">Your medical equipment in one click for your everyday medical job.</p>
-    <hr class="my-4">
-    <p>Our online store offers different medical equipment for individuals in the medical field, our products are not intended for self-medication, clinics and medical organisations or hospitals.</p>
-    <div class="text-right p-0">
-        <a class="btn btn-outline-info btn-lg" href="#" role="button">Shop now!</a>
+<div class="container mt-3">
+  <h2 class="text-center my-3 font-weight-bold">Welcome to your shop!</h2>
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <carousel [isAnimated]="true">
+        <slide>
+          <img src="assets/images/hero1.jpg" alt="first slide" style="display: block; width: 100%;">
+          <div class="carousel-caption d-none d-md-block">
+            <h4>World of warcraft: Shadowlands</h4>
+            <a class="btn btn-secondary">More details <i class="fa fa-angle-right"></i></a>
+          </div>
+        </slide>
+        <slide>
+          <img src="assets/images/hero2.jpg" alt="second slide" style="display: block; width: 100%;">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>First slide label</h3>
+            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          </div>
+        </slide>
+        <slide>
+          <img src="assets/images/hero3.jpg" alt="second slide" style="display: block; width: 100%;">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>First slide label</h3>
+            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          </div>
+        </slide>
+      </carousel>
     </div>
-</div>
-
-<div class="container">
-    <h2 class="text-center mt-3 mb-5 font-weight-bold">Welcome to your shop!</h2>
-    <div class="card-deck mb-5">
+  </div>
+  <div class="row mt-5 mb-3">
+    <div class="col">
+      <div class="card-deck">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title"><i class="fa fa-shopping-cart"></i> Quality equipments</h5>
-            <p class="card-text">Our quality assurance team ensures that our products are of good quality that meets your expectations.</p>
+            <h5 class="card-title"><i class="fa fa-shield"></i> Practical and Safe</h5>
+            <p class="card-text">
+              Our games and products are original and 100% guaranteed
+            </p>
           </div>
         </div>
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title"><i class="fa fa-truck"></i> Delivery service</h5>
-            <p class="card-text">Our delivery service is one of the most viable ones out there. You will receive your products in time, and we take the engagement to refund 20% of our delivery fee for every day off.</p>
+            <h5 class="card-title"><i class="fa fa-clock-o"></i> Fast Delivery</h5>
+            <p class="card-text">
+              Receive your products by email in 60 minutes after paying!
+            </p>
           </div>
         </div>
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title"><i class="fa fa-refresh"></i> After sale service</h5>
-            <p class="card-text">We provide an after sale service for all our customers to ensure that the products we deliver meet their expectations.</p>
+            <h5 class="card-title"><i class="fa fa-thumbs-o-up"></i> Satisfaction guaranteed</h5>
+            <p class="card-text">Join the thousands of customers who have trusted us!</p>
           </div>
         </div>
       </div>
+    </div>
   </div>
+</div>

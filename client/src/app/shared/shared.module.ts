@@ -12,30 +12,39 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
 import { StepperComponent } from './components/stepper/stepper.component';
 import { SummaryComponent } from './components/summary/summary.component';
 import { RouterModule } from '@angular/router';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { RatingModule } from 'ngx-bootstrap/rating';
+import { StatusBadgeComponent } from './components/status-badge/status-badge.component';
 
 @NgModule({
-  declarations: [PagingHeaderComponent, PagerComponent, OrderTotalsComponent, TextInputComponent, StepperComponent, SummaryComponent],
+  declarations: [PagingHeaderComponent, PagerComponent, OrderTotalsComponent,
+    TextInputComponent, StepperComponent, SummaryComponent, StatusBadgeComponent],
   imports: [
     CommonModule,
     PaginationModule.forRoot(),
     ReactiveFormsModule,
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
+    CarouselModule.forRoot(),
+    RatingModule.forRoot(),
     CdkStepperModule,
-    RouterModule
+    RouterModule,
   ],
   exports: [
     PaginationModule,
     PagingHeaderComponent,
     PagerComponent,
+    CarouselModule,
     OrderTotalsComponent,
     ReactiveFormsModule,
     CollapseModule,
     BsDropdownModule,
     TextInputComponent,
     CdkStepperModule,
+    RatingModule,
     StepperComponent,
-    SummaryComponent
+    SummaryComponent,
+    StatusBadgeComponent
   ]
 })
 export class SharedModule { }

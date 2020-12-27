@@ -1,46 +1,39 @@
 .cart-no {
   position: absolute;
   min-height: 20px;
-  min-width: 25px;
+  min-width: 20px;
   border-radius: 50%;
-  font-size: 1em;
-  background: #21617e;
+  font-size: 0.7em;
+  background: #336699;
   color: white;
   text-align: center;
-  right: 38px;
+  right: -5px;
   top: 0px;
 }
 
 .cart-icon {
   color: #343a40;
   transition: all 0.3s;
-
+  font-size: 30px;
   &:hover {
-      color: #3ec4b8;
-  }
-}
-
-li.nav-item a.nav-link {
-  color: #666a6e;
-
-  &.active {
-    color: #3ec4b8;
-  }
-
-  &:hover {
-    color: #3ec4b8;
-    transition: 0.3s;
-  }
-
-  &.btn:hover {
-    color: #343a40;
-    transition: 0.3s;
+      color: #336699;
   }
 }
 
 #logo {
   cursor: pointer;
+  display: inline-block;
+  height: 60px;
+  width: 90px;
+  padding: 0px;
+  
   &:focus {
     outline: none;
   }
+
+  &:hover {
+    transform: scale(1.25);
+  }
+
+  transition: all 0.2s;
 }

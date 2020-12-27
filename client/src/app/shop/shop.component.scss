@@ -3,13 +3,38 @@
     transition: 0.15s;
 
     &:hover:not(.active) {
-        background-color: rgba($color: #3ec4b8, $alpha: .2);
-        border-color: rgba($color: #3ec4b8, $alpha: .2);
+        background-color: rgba($color: #AAAAAA, $alpha: .2);
+        border-color: rgba($color: #AAAAAA, $alpha: .2);
         transition: 0.15s;
     }
     
     &.active {
-        background-color: #3ec4b8;
-        border-color: #3ec4b8;
+        background-color: #AAAAAA;
+        border-color: #AAAAAA;
     }
 }    
+
+.filter-toggle {
+    color: #EB6864;
+    font-size: 20px;
+    transition: all 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        color: #F29D9B;
+    }
+}
+#logo {
+    height: 56px;
+    width: 86px;
+    cursor: pointer;
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        transform: scale(1.25);
+    }
+
+    transition: all 0.2s;
+}

@@ -5,7 +5,7 @@
             (click)="saveUserAddress()" 
             [disabled]="!checkoutForm.get('addressForm').valid || 
                 !checkoutForm.get('addressForm').dirty"
-            class="btn btn-success mb-3">
+            class="btn btn-outline-success mb-3">
             Save as default address
         </button>
     </div>
@@ -35,7 +35,7 @@
     <button class="btn btn-outline-danger mb-3 mb-lg-0" routerLink="/basket">
         <i class="fa fa-angle-left"></i> Back to Basket
     </button>
-    <button [disabled]="checkoutForm.get('addressForm').invalid" class="btn btn-info" cdkStepperNext>
+    <button [disabled]="checkoutForm.get('addressForm').invalid" class="btn btn-primary" cdkStepperNext>
         Go to Delivery <i class="fa fa-angle-right"></i> 
     </button>
 </div>

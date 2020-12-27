@@ -18,6 +18,10 @@ export class ShopComponent implements OnInit {
   totalCount: number;
   shopParams = new ShopParams();
 
+  isTypesCollapsed = true;
+  isBrandsCollapsed = true;
+  isSortSearchCollapsed = false;
+
   sortOptions = [
     {name: 'Alphabetical', value: 'name'},
     {name: 'Price: Low to Heigh', value: 'priceAsc'},
@@ -35,6 +39,7 @@ export class ShopComponent implements OnInit {
   }
 
   private getProducts(): void {
+    this.shopParams.pageSize = 9;
     this.shopService.getProducts(this.shopParams).subscribe(response => {
       this.products = response.data;
       this.shopParams.pageNumber = response.pageIndex;

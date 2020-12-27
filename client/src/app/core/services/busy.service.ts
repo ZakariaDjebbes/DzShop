@@ -15,7 +15,7 @@ export class BusyService {
       type: 'ball-fussion',
       bdColor: 'rgba(0, 0, 0, 0.75)',
       size: 'medium',
-      color: '#3ec4b8'
+      color: '#EB6864'
     });
   }
 

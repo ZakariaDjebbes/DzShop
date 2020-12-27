@@ -66,7 +66,7 @@
                 <p>
                     <strong>Status: </strong> 
                     <!--TODO make this a shared component-->
-                    <span [ngStyle]="{'color': (order.status === 'Pending') ? 'orange' : (order.status === 'Payement Received') ? 'green' : (order.status === 'Payement Failed') ? 'red' : ''}">{{order.status}}</span>
+                    <app-status-badge [content]="{value: order.status, color: order.status === 'Payement Received'? 'success' : order.status === 'Payement Failed' ? 'primary' : 'danger'}"></app-status-badge>
                 </p>
             </div>
         </div>

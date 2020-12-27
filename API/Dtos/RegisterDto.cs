@@ -16,5 +16,8 @@ namespace API.Dtos
 			",})|(.{4,}(([a-zA-Z][^a-zA-Z])|([^a-zA-Z][a-zA-Z])).{0,})$",
 			ErrorMessage = "Password must contain at least 1 letter, 1 non letter and at least 6 characters")]
 		public string Password { get; set; }
+		[Required]
+		[Compare("Password")]
+		public string ConfirmPassword { get; set; }
 	}
 }

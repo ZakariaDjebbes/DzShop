@@ -12,7 +12,6 @@ using System.Collections.Generic;
 
 namespace API.Controllers
 {
-    [Authorize]
     public class OrderController : BaseApiController
     {
         private readonly IOrderService _orderService;
@@ -24,6 +23,7 @@ namespace API.Controllers
             _mapper = mapper;
         }
         
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<OrderToReturnDto>> CreateOrder(OrderDto orderDto)
         {
@@ -39,6 +39,7 @@ namespace API.Controllers
             return Ok(_mapper.Map<Order, OrderToReturnDto>(order));
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<OrderToReturnDto>>> GetOrdersOfUser() 
         {
@@ -48,6 +49,7 @@ namespace API.Controllers
             return Ok(_mapper.Map<IReadOnlyList<Order>, IReadOnlyList<OrderToReturnDto>>(orders));
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<OrderToReturnDto>> GetOrderById(int id)
         {
@@ -58,7 +60,7 @@ namespace API.Controllers
 
             return Ok(_mapper.Map<Order, OrderToReturnDto>(order));
         }
-
+        
         [HttpGet("deliveryMethods")]
         public async Task<ActionResult<IReadOnlyList<DeliveryMethod>>> GetDeliveryMethods()
         {

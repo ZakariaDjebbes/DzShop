@@ -1,0 +1,14 @@
+#logo {
+    height: 250px;
+    width: 400px;
+    cursor: pointer;
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        transform: scale(1.25);
+    }
+
+    transition: all 0.2s;
+}

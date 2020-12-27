@@ -12,7 +12,7 @@ namespace API.Extensions
 			{
 				options.SwaggerDoc("v1", new OpenApiInfo
 				{
-					Title = "MedSupply API",
+					Title = "DzShop API",
 					Version = "V1"
 				});
 
@@ -50,7 +50,7 @@ namespace API.Extensions
 			app.UseSwagger();
 			app.UseSwaggerUI((options) =>
 			{
-				options.SwaggerEndpoint("/swagger/v1/swagger.json", "MedSupply API v1");
+				options.SwaggerEndpoint("/swagger/v1/swagger.json", "DzShop API v1");
 			});
 
 			return app;

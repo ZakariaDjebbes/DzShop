@@ -10,7 +10,6 @@ a.xng-breadcrumb-link{
     color: #f8f9fa !important;
 
     &:hover{
-        color: #3ec4b8 !important;
         transition: 0.3s;
         cursor: pointer;
     }
@@ -18,38 +17,9 @@ a.xng-breadcrumb-link{
 
 label.xng-breadcrumb-trail {
     margin-bottom: 0;
-    color: #3ec4b8;
 }
 
 .xng-breadcrumb-separator {
     padding: 0;
-    color: #f8f9fa;
-}
-
-$theme-colors: (
-"primary":#4da3ff,
-"secondary":#868e96,
-"success":#51E685,
-// "danger":#ff7583,
-"info":#3ec4b8,
-"warning":#ffc107,
-"light":#f8f9fa,
-"dark":#343a40,
-);
-
-@import "node_modules/bootstrap/scss/bootstrap.scss";
-
-.page-item.active .page-link {
-    background-color: #3ec4b8;
-    border-color: #3ec4b8;
-}
-
-.page-link {
-    color: #3ec4b8; 
-}
-
-.page-link:hover {
-    background-color: #84d6cf;
-    transition: all 0.3s;
     color: #f8f9fa;
 }

@@ -20,7 +20,7 @@ export class LoadingInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
 
-    if(request.method === 'DELETE')
+    if (request.method === 'DELETE')
     {
       return next.handle(request);
     }

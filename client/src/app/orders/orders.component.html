@@ -1,23 +1,32 @@
 <ng-container *ngIf="orders">
   <div class="container mt-4">
-      <h3 class="my-4">Your orders</h3>
-      <table class="table table-hover table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Date</th>
-              <th scope="col">Total</th>
-              <th scrope="col">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr routerLink="/orders/{{order.id}}" *ngFor="let order of orders">
-              <th scope="row"><strong>#{{order.id}}</strong></th>
-              <td>{{order.orderDate|date:'medium'}}</td>
-              <td>{{order.total|currency}}</td>
-              <td>{{order.status}}</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="text-center">
+      <h2 class="my-4 font-weight-bold">Orders</h2>
+    </div>
+    <div class="custom-table">
+      <table class="text-center table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Date</th>
+            <th scope="col">Total</th>
+            <th scrope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr routerLink="/orders/{{order.id}}" *ngFor="let order of orders">
+            <th scope="row"><strong>Order #{{order.id}}</strong></th>
+            <td>{{order.orderDate|date:'medium'}}</td>
+            <td>{{order.total|currency}}</td>
+            <td>
+              <app-status-badge [content]="{value: order.status, color: order.status === 'Payement Received'? 'success' : order.status === 'Payement Failed' ? 'primary' : 'danger'}"></app-status-badge>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-center">
+      <app-pager [totalCount]="20" [pageSize]="10"></app-pager>
+    </div>
   </div>
 </ng-container>
