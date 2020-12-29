@@ -1,10 +1,11 @@
-﻿using Core.Entities;
+﻿using System.Linq;
+using Core.Entities;
 
 namespace Core.Specifications
 {
-	public class ProductsWithBrandsAndTypesSpecifications : BaseSpecification<Product>
+	public class ProductWithBrandAndTypeSpecification : BaseSpecification<Product>
 	{
-		public ProductsWithBrandsAndTypesSpecifications(ProductSpecificationParams specParams) 
+		public ProductWithBrandAndTypeSpecification(ProductSpecificationParams specParams) 
 			: base(x => 
 			(string.IsNullOrEmpty(specParams.Search) || x.Name.ToLower().Contains(specParams.Search)) &&
 			(!specParams.BrandId.HasValue || x.ProductBrandId == specParams.BrandId) &&
@@ -13,6 +14,8 @@ namespace Core.Specifications
 		{
 			AddInclude(x => x.ProductBrand);
 			AddInclude(x => x.ProductType);
+			AddInclude("Reviews.AppUser");
+
 			SetOrderBy(x => x.Name);
 			ApplyPaging(specParams.PageSize * (specParams.PageIndex - 1),  specParams.PageSize); 
 
@@ -33,11 +36,12 @@ namespace Core.Specifications
 			}
 		}
 
-		public ProductsWithBrandsAndTypesSpecifications(int id)
+		public ProductWithBrandAndTypeSpecification(int id)
 			: base(x => x.Id == id)
 		{
 			AddInclude(x => x.ProductBrand);
 			AddInclude(x => x.ProductType);
+			AddInclude("Reviews.AppUser");
 		}
 	}
 }

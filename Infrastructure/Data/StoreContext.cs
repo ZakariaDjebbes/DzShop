@@ -2,13 +2,15 @@
 using System.Linq;
 using System.Reflection;
 using Core.Entities;
+using Core.Entities.Identity;
 using Core.Entities.Order;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Data
 {
-	public class StoreContext : DbContext
+	public class StoreContext : IdentityDbContext<AppUser>
 	{
 		public StoreContext(DbContextOptions<StoreContext> options) : base(options)
 		{

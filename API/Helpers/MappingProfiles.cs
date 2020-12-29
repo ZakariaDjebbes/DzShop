@@ -25,6 +25,9 @@ namespace API.Helpers
 				.ForMember(oi => oi.ProductId, o => o.MapFrom(s => s.ItemOrdered.ProductItemId))
 				.ForMember(oi => oi.PictureUrl, o => o.MapFrom(s => s.ItemOrdered.PictureUrl))
 				.ForMember(oi => oi.PictureUrl, o => o.MapFrom<OrderItemUrlResolver>());
+			CreateMap<Review, ReviewToReturnDto>()
+				.ForMember(m => m.UserName, o => o.MapFrom(u => u.AppUser.UserName))
+				.ForMember(m => m.Email, o => o.MapFrom(u => u.AppUser.Email));
 		}
 	}
 }

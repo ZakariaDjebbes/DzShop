@@ -6,7 +6,12 @@
         <div class="col-md-6 col-12">
             <div class="row">
                 <div class="col">
-                    <h3>{{product.name}}</h3>
+                    <h3>
+                        {{product.name}} 
+                        <span class="float-right">
+                            <rating [ngModel]="product.reviewsAverage" [disabled]="true" [readonly]="true" style="color: #EB6864;font-size: 25px;"></rating>
+                        </span>
+                    </h3>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="badge badge-primary">{{product.price | currency}}</span>
                         <div>
@@ -27,7 +32,7 @@
                             <i (click)="incrementQuantity()" class="fa fa-plus-circle i-product-count"></i>
                         </div>
                         <div>
-                            <input type="button" (click)="addItemToBasket()" value="Add to cart"
+                            <input type="button" (click)="addItemToBasket()" value="Add to basket"
                                 class="btn btn-primary text-light">
                         </div>
                     </div>
@@ -35,7 +40,7 @@
             </div>
             <div class="row mt-5">
                 <div class="col">
-                    <app-product-reviews></app-product-reviews>
+                    <app-product-reviews [productId]="product.id"></app-product-reviews>
                 </div>
             </div>
         </div>

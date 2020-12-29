@@ -13,6 +13,7 @@ import { AccountService } from '../account.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   errors: [];
+  loading = false;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private accountService: AccountService) { }
 
@@ -22,7 +23,7 @@ export class RegisterComponent implements OnInit {
 
   createRegisterForm(): void {
     this.registerForm = this.formBuilder.group({
-      displayName: [null, [Validators.required]],
+      userName: [null, [Validators.required]],
       email: [null,
         [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')],
         [this.validateEmailNotTaken()]
@@ -33,12 +34,20 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.accountService.register(this.registerForm.value).subscribe(() => {
+    this.loading = true;
+    this.accountService.register(this.registerForm.value).subscribe(
+      () => {
       this.router.navigateByUrl('/shop');
-    }, (error) => {
+      },
+      (error) => {
       console.error(error);
       this.errors = error.errors;
-    });
+      this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      }
+    );
   }
 
   validateEmailNotTaken(): AsyncValidatorFn {

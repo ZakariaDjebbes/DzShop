@@ -3,7 +3,6 @@ using API.Helpers;
 using API.Middleware;
 using AutoMapper;
 using Infrastructure.Data;
-using Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -42,10 +41,6 @@ namespace API
 			services.AddDbContext<StoreContext>(ctx =>
 			{
 				ctx.UseSqlite(_config.GetConnectionString("DefaultConnection"));
-			});
-			services.AddDbContext<AppIdentityDbContext>(ctx =>
-			{
-				ctx.UseSqlite(_config.GetConnectionString("IdentityConnection"));
 			});
 			services.AddSingleton<IConnectionMultiplexer>(c => {
 				var configuration = ConfigurationOptions.Parse(_config.GetConnectionString("Redis"), true);

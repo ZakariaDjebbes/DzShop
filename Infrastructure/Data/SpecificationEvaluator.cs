@@ -33,6 +33,7 @@ namespace Infrastructure.Data
 			}
 
 			query = specification.Includes.Aggregate(query, (current, include) => current.Include(include));
+			query = specification.StringIncludes.Aggregate(query, (current, stringInclude) => current.Include(stringInclude));
 
 			return query;
 		}

@@ -9,6 +9,7 @@ import { BasketService } from 'src/app/basket/basket.service';
 })
 export class CheckoutReviewComponent implements OnInit {
   @Input() cdkStepper: CdkStepper;
+  loading = false;
 
   constructor(private basketService: BasketService) { }
 
@@ -18,11 +19,19 @@ export class CheckoutReviewComponent implements OnInit {
   // tslint:disable-next-line: typedef
   createPaymentIntent()
   {
+    this.loading = true;
     return this.basketService.createPaymentIntent().subscribe(
       (res) => {
         this.cdkStepper.next();
       },
-      (err) => { console.error(err); });
+      (err) => {
+        console.error(err);
+        this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      }
+    );
   }
 
   backToDeliery(): void

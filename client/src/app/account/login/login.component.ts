@@ -11,6 +11,7 @@ import { AccountService } from '../account.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   returnUrl: string;
+  loading = false;
 
   constructor(private accountService: AccountService, private router: Router, private activatedRoot: ActivatedRoute) { }
 
@@ -27,10 +28,18 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.accountService.login(this.loginForm.value).subscribe(() => {
+    this.loading = true;
+    this.accountService.login(this.loginForm.value).subscribe(
+      () => {
       this.router.navigateByUrl(this.returnUrl);
-    }, error => {
+      },
+      error => {
       console.log(error);
-    });
+      this.loading = false;
+      },
+      () => {
+        this.loading = false;
+      }
+    );
   }
 }

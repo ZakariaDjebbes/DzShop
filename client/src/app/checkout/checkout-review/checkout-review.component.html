@@ -5,7 +5,7 @@
     <button class="btn btn-outline-danger mb-3 mb-lg-0" (click)="backToDeliery()">
         <i class="fa fa-angle-left"></i> Back to Delivery
     </button>
-    <button class="btn btn-primary" (click)="createPaymentIntent()">
-        Go to Payment <i class="fa fa-angle-right"></i> 
+    <button class="btn btn-primary" [disabled]="loading" (click)="createPaymentIntent()">
+        Go to Payment <i class="fa fa-angle-right"> <i *ngIf="loading" class="fa fa-spin fa-spinner"></i></i> 
     </button>
 </div>

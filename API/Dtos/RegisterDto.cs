@@ -8,7 +8,7 @@ namespace API.Dtos
 		[EmailAddress]
 		public string Email { get; set; }
 		[Required]
-		public string DisplayName { get; set; }
+		public string UserName { get; set; }
 		[Required]
 		[RegularExpression("^(.{0,}(([a-zA-Z][^a-zA-Z])|([^a-zA-Z][a-zA-Z])).{4,})|(.{1,}" +
 			"(([a-zA-Z][^a-zA-Z])|([^a-zA-Z][a-zA-Z])).{3,})|(.{2,}(([a-zA-Z][^a-zA-Z])|(" +

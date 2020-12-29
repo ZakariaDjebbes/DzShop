@@ -6,3 +6,8 @@ export class ShopParams {
     pageSize = 6;
     search: string;
 }
+
+export class ReviewParams {
+    pageNumber = 1;
+    pageSize = 5;
+}
