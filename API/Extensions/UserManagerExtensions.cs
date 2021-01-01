@@ -12,17 +12,17 @@ namespace API.Extensions
 		public static async Task<AppUser> FindByClaimsWithAddressAsync(this UserManager<AppUser> userManager,
 			ClaimsPrincipal claimsPrincipal)
 		{
-			var email = claimsPrincipal?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+			var id = claimsPrincipal?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-			return await userManager.Users.Include(x => x.Address).SingleOrDefaultAsync(x => x.Email == email);
+			return await userManager.Users.Include(x => x.Address).SingleOrDefaultAsync(x => x.Id == id);
 		}
 
 		public static async Task<AppUser> FindByClaimsAsync(this UserManager<AppUser> userManager,
 			ClaimsPrincipal claimsPrincipal)
 		{
-			var email = claimsPrincipal?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+			var id = claimsPrincipal?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-			return await userManager.Users.SingleOrDefaultAsync(x => x.Email == email);
+			return await userManager.Users.SingleOrDefaultAsync(x => x.Id == id);
 		}
 	}
 }

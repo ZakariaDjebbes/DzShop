@@ -1,0 +1,84 @@
+<div class="container mt-3" [formGroup]="accountForm" *ngIf="(user$|async) as user">
+    <div class="text-center">
+        <img src="assets/images/logo/logo_transparent.png" id="logo" class="img-fluid" alt="logo" [routerLink]="['/']">
+        <h3>Your account</h3>
+    </div>
+    <ul *ngIf="errors" class="list-unstyled">
+        <li class="text-danger" *ngFor="let error of errors">
+            {{error}}
+        </li>
+    </ul>
+    <tabset type="pills">
+        <tab>
+            <ng-template tabHeading><i class="fa fa-user fa-fw mr-1"></i>Profile</ng-template>
+
+            <div class="container mt-3">
+                <form formGroupName="profileForm" (submit)="onProfileSubmit()">
+                    <app-text-input formControlName="userName" [label]="'Username'">
+                    </app-text-input>
+                    <app-text-input formControlName="email" [label]="'Email Address'">
+                    </app-text-input>
+                    <app-text-input formControlName="password" [label]="'Password'" [type]="'password'">
+                    </app-text-input>
+                    <app-text-input formControlName="confirmPassword" [label]="'Confirm Password'" [type]="'password'">
+                    </app-text-input>
+                    <button [disabled]="!accountForm.get('profileForm').valid || loading || (!accountForm.get('profileForm').get('email').dirty && !accountForm.get('profileForm').get('userName').dirty)"
+                        class="btn btn-lg btn-primary btn-block mb-3" type="submit">Save changes <i *ngIf="loading"
+                            class="fa fa-spin fa-spinner"></i></button>
+                </form>
+            </div>
+        </tab>
+        <tab>
+            <ng-template tabHeading><i class="fa fa-unlock-alt fa-fw mr-1"></i>Password</ng-template>
+
+            <div class="container mt-3">
+                <form formGroupName="passwordForm" (submit)="onPasswordSubmit()">
+                    <app-text-input formControlName="newPassword" [label]="'New Password'" [type]="'password'">
+                    </app-text-input>
+                    <app-text-input formControlName="confirmNewPassword" [label]="'Confirm New Password'"
+                        [type]="'password'"> </app-text-input>
+                    <app-text-input formControlName="oldPassword" [label]="'Old Password'" [type]="'password'">
+                    </app-text-input>
+                    <app-text-input formControlName="confirmOldPassword" [label]="'Confirm Old Password'"
+                        [type]="'password'">
+                    </app-text-input>
+                    <button [disabled]="!accountForm.get('passwordForm').valid || loading"
+                        class="btn btn-lg btn-primary btn-block mb-3" type="submit">Save changes <i *ngIf="loading"
+                            class="fa fa-spin fa-spinner"></i></button>
+                </form>
+            </div>
+        </tab>
+        <tab>
+            <ng-template tabHeading><i class="fa fa-location-arrow fa-fw mr-1"></i>Address</ng-template>
+            
+            <div class="container mt-3">
+                <form formGroupName="addressForm" (submit)="onAddressSubmit()">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <app-text-input [label]="'First Name'" formControlName="firstName"></app-text-input>
+                        </div>
+                        <div class="form-group col-6">
+                            <app-text-input [label]="'Last Name'" formControlName="lastName"></app-text-input>
+                        </div>
+                        <div class="form-group col-6">
+                            <app-text-input [label]="'Street'" formControlName="street"></app-text-input>
+                        </div>
+                        <div class="form-group col-6">
+                            <app-text-input [label]="'City'" formControlName="city"></app-text-input>
+                        </div>
+                        <div class="form-group col-6">
+                            <app-text-input [label]="'Country'" formControlName="country"></app-text-input>
+                        </div>
+                        <div class="form-group col-6">
+                            <app-text-input [label]="'Zip Code'" formControlName="zipcode"></app-text-input>
+                        </div>
+                    </div>
+                    <button [disabled]="!accountForm.get('addressForm').valid || 
+                    !accountForm.get('addressForm').dirty || loading"
+                        class="btn btn-lg btn-primary btn-block mb-3" type="submit">Save changes <i *ngIf="loading"
+                            class="fa fa-spin fa-spinner"></i></button>
+                </form>
+            </div>
+        </tab>
+    </tabset>
+</div>

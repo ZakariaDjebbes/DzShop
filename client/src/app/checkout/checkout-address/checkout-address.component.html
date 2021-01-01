@@ -4,9 +4,9 @@
         <button 
             (click)="saveUserAddress()" 
             [disabled]="!checkoutForm.get('addressForm').valid || 
-                !checkoutForm.get('addressForm').dirty"
+                !checkoutForm.get('addressForm').dirty || loading"
             class="btn btn-outline-success mb-3">
-            Save as default address
+            Save as default address <i *ngIf="loading" class="fa fa-spin fa-spinner"></i>
         </button>
     </div>
     <div class="row" formGroupName="addressForm">
@@ -35,7 +35,7 @@
     <button class="btn btn-outline-danger mb-3 mb-lg-0" routerLink="/basket">
         <i class="fa fa-angle-left"></i> Back to Basket
     </button>
-    <button [disabled]="checkoutForm.get('addressForm').invalid" class="btn btn-primary" cdkStepperNext>
+    <button [disabled]="checkoutForm.get('addressForm').invalid || loading" class="btn btn-primary" cdkStepperNext>
         Go to Delivery <i class="fa fa-angle-right"></i> 
     </button>
 </div>

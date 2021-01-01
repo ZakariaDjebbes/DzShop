@@ -11,6 +11,7 @@ import { IAddress } from 'src/app/shared/models/address';
 })
 export class CheckoutAddressComponent implements OnInit {
   @Input() checkoutForm: FormGroup;
+  loading = false;
 
   constructor(private accountService: AccountService, private toastr: ToastrService) {
   }
@@ -19,13 +20,16 @@ export class CheckoutAddressComponent implements OnInit {
   }
 
   saveUserAddress(): void {
+    this.loading = true;
     this.accountService.updateUserAddress(this.checkoutForm.get('addressForm').value)
       .subscribe((address: IAddress) => {
         this.toastr.success('Address saved');
         this.checkoutForm.get('addressForm').reset(address);
+        this.loading = false;
       }, error => {
         this.toastr.error(error.message);
         console.log(error);
+        this.loading = false;
       });
   }
 }

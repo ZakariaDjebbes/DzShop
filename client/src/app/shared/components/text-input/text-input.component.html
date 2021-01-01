@@ -19,5 +19,6 @@
 
     <div class="invalid-feedback d-block" *ngIf="(controlDir && controlDir.control && !controlDir.control.valid && controlDir.control.dirty)">
         <span *ngIf="controlDir.control.errors?.emailExists">Email address is in use</span>
+        <span *ngIf="controlDir.control.errors?.userExists">Username is in use</span>
     </div>
   </div>

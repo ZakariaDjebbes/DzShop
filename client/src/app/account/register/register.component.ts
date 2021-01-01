@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
 
   createRegisterForm(): void {
     this.registerForm = this.formBuilder.group({
-      userName: [null, [Validators.required]],
+      userName: [null, [Validators.required], [this.validateUserNotTaken()]],
       email: [null,
         [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')],
         [this.validateEmailNotTaken()]
@@ -56,6 +56,17 @@ export class RegisterComponent implements OnInit {
         switchMap(() => {
           if (!control.value) { return of(null); }
           return this.accountService.checkEmailExists(control.value).pipe(map(res => res ? { emailExists: true } : null));
+        })
+      );
+    };
+  }
+
+  validateUserNotTaken(): AsyncValidatorFn {
+    return control => {
+      return timer(500).pipe(
+        switchMap(() => {
+          if (!control.value) { return of(null); }
+          return this.accountService.checkUserExists(control.value).pipe(map(res => res ? { userExists: true } : null));
         })
       );
     };

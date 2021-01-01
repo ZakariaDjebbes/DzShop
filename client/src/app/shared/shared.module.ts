@@ -14,6 +14,7 @@ import { SummaryComponent } from './components/summary/summary.component';
 import { RouterModule } from '@angular/router';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { RatingModule } from 'ngx-bootstrap/rating';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { StatusBadgeComponent } from './components/status-badge/status-badge.component';
 
 @NgModule({
@@ -27,6 +28,7 @@ import { StatusBadgeComponent } from './components/status-badge/status-badge.com
     BsDropdownModule.forRoot(),
     CarouselModule.forRoot(),
     RatingModule.forRoot(),
+    TabsModule.forRoot(),
     CdkStepperModule,
     RouterModule,
   ],
@@ -41,6 +43,7 @@ import { StatusBadgeComponent } from './components/status-badge/status-badge.com
     BsDropdownModule,
     TextInputComponent,
     CdkStepperModule,
+    TabsModule,
     RatingModule,
     StepperComponent,
     SummaryComponent,

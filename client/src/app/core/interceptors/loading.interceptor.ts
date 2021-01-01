@@ -21,12 +21,17 @@ export class LoadingInterceptor implements HttpInterceptor {
       return next.handle(request).pipe(delay(1000));
     }
 
+    if (request.method === 'PUT' && request.url.includes('account'))
+    {
+      return next.handle(request).pipe(delay(1000));
+    }
+
     if (request.method === 'DELETE')
     {
       return next.handle(request);
     }
 
-    if (request.url.includes('emailExists'))
+    if (request.url.includes('emailExists') || request.url.includes('userExists'))
     {
       return next.handle(request);
     }

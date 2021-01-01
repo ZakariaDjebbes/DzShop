@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { IUser } from 'src/app/shared/models/user';
 import { AccountService } from '../account.service';
 
 @Component({
@@ -13,7 +15,8 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   loading = false;
 
-  constructor(private accountService: AccountService, private router: Router, private activatedRoot: ActivatedRoute) { }
+  constructor(private accountService: AccountService, private router: Router,
+              private activatedRoot: ActivatedRoute, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.returnUrl = this.activatedRoot.snapshot.queryParams.returnUrl || '/shop';
@@ -30,8 +33,9 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.loading = true;
     this.accountService.login(this.loginForm.value).subscribe(
-      () => {
-      this.router.navigateByUrl(this.returnUrl);
+      (user) => {
+        this.router.navigateByUrl(this.returnUrl);
+        this.toastr.success('Welcome back ' + user.userName);
       },
       error => {
       console.log(error);

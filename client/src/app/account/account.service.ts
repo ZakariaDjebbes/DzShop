@@ -19,11 +19,12 @@ export class AccountService {
 
   // tslint:disable-next-line: typedef
   public login(values: any) {
-    return this.http.post(this.baseUrl + 'account/login', values)
+    return this.http.post<IUser>(this.baseUrl + 'account/login', values)
       .pipe(map((user: IUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
+          return user;
         }
       }));
   }
@@ -37,6 +38,11 @@ export class AccountService {
   // tslint:disable-next-line: typedef
   public checkEmailExists(email: string) {
     return this.http.get(this.baseUrl + 'account/emailExists?email=' + email);
+  }
+
+  // tslint:disable-next-line: typedef
+  public checkUserExists(username: string) {
+    return this.http.get(this.baseUrl + 'account/userExists?username=' + username);
   }
 
   // tslint:disable-next-line: typedef
@@ -77,5 +83,21 @@ export class AccountService {
   // tslint:disable-next-line: typedef
   public updateUserAddress(address: IAddress) {
     return this.http.put<IAddress>(this.baseUrl + 'account/address', address);
+  }
+
+  // tslint:disable-next-line: typedef
+  public updateUser(values: any) {
+    return this.http.put<IUser>(this.baseUrl + 'account/updateProfile', values).pipe(map((user: IUser) => {
+      if (user) {
+        localStorage.setItem('token', user.token);
+        this.currentUserSource.next(user);
+        return user;
+      }
+    }));
+  }
+
+  // tslint:disable-next-line: typedef
+  public updateUserPassword(values: any) {
+    return this.http.put(this.baseUrl + 'account/updatePassword', values);
   }
 }
