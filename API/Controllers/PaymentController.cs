@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Threading.Tasks;
 using API.Errors;
@@ -30,7 +31,7 @@ namespace API.Controllers
 
         [Authorize]
         [HttpPost("{basketId}")]
-        public async Task<ActionResult<CustomerBasket>> CreateOrUpdatePaymentIntent(string basketId)
+        public async Task<ActionResult<CustomerBasket>> CreateOrUpdatePaymentIntent([Required] string basketId)
         {
             var basket = await _paymentService.CreateOrUpdatePaymentIntentAsync(basketId);
             if (basket == null)

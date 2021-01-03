@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using API.Controllers;
 using API.Dtos;
@@ -51,9 +52,7 @@ namespace Infrastructure.Controllers
 
         [HttpGet("{id}")]
         //[Cached(300)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
+        public async Task<ActionResult<ProductToReturnDto>> GetProduct([Required] int id)
         {
             var specification = new ProductWithBrandAndTypeSpecification(id);
             var product = await _unitOfWork.Repository<Product>().GetEntityWithSpecAsync(specification);
@@ -94,7 +93,7 @@ namespace Infrastructure.Controllers
         }
 
         [HttpGet("reviews/{id}")]
-        public async Task<ActionResult<Pagination<ReviewToReturnDto>>> GetReviewsOfProduct(int id,
+        public async Task<ActionResult<Pagination<ReviewToReturnDto>>> GetReviewsOfProduct([Required] int id,
             [FromQuery] ReviewSpecificationParams specParams)
         {
             ReviewOfProductWithPagingSpecification spec =

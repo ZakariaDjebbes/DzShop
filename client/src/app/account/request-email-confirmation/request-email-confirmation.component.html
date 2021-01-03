@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="text-center mt-5">
+        <img src="assets/images/send-email.png" alt="send-email logo" class="img-fluid mb-5">
+        <h3>Help us confirm your email address</h3>
+        <p>Please enter your email address to receive a confirmation link</p>
+    </div>
+    <form [formGroup]="confirmationForm" (submit)="onSubmit()">
+        <app-text-input formControlName="email" [label]="'Email Address'" [type]="'email'"></app-text-input>
+        <button [disabled]="isLoading || !confirmationForm.valid" class="btn btn-lg btn-primary btn-block mb-3" type="submit">Send <i *ngIf="isLoading" class="fa fa-spin fa-spinner"></i></button>
+    </form>
+</div>

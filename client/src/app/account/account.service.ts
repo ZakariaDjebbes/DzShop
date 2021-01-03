@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { of, ReplaySubject } from 'rxjs';
+import { Observable, of, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IAddress } from '../shared/models/address';
@@ -16,6 +16,15 @@ export class AccountService {
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
+
+  public confirmEmail(token: string, email: string): Observable<boolean>
+  {
+    const params = {
+      token,
+      email
+    };
+    return this.http.get<boolean>(this.baseUrl + 'account/confirmEmail', {params});
+  }
 
   // tslint:disable-next-line: typedef
   public login(values: any) {
@@ -35,6 +44,15 @@ export class AccountService {
     this.router.navigateByUrl('/');
   }
 
+  public requestConfirmationEmail(email: string): Observable<any>
+  {
+    const params = {
+      email
+    };
+
+    return this.http.get(this.baseUrl + 'account/requestConfirmationEmail', { params });
+  }
+
   // tslint:disable-next-line: typedef
   public checkEmailExists(email: string) {
     return this.http.get(this.baseUrl + 'account/emailExists?email=' + email);
@@ -46,13 +64,14 @@ export class AccountService {
   }
 
   // tslint:disable-next-line: typedef
-  public register(values: any) {
-    return this.http.post(this.baseUrl + 'account/register', values).pipe(map((user: IUser) => {
-      if (user) {
-        localStorage.setItem('token', user.token);
-        this.currentUserSource.next(user);
-      }
-    }));
+  public register(values: any): Observable<boolean> {
+    return this.http.post<boolean>(this.baseUrl + 'account/register', values);
+    // .pipe(map((user: IUser) => {
+    //   if (user) {
+    //     localStorage.setItem('token', user.token);
+    //     this.currentUserSource.next(user);
+    //   }
+    // })
   }
 
   // tslint:disable-next-line: typedef

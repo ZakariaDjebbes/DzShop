@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AsyncValidatorFn, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { of, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { AccountService } from '../account.service';
@@ -23,7 +23,8 @@ export class RegisterComponent implements OnInit {
 
   createRegisterForm(): void {
     this.registerForm = this.formBuilder.group({
-      userName: [null, [Validators.required], [this.validateUserNotTaken()]],
+      userName: [null, [Validators.required],
+        [this.validateUserNotTaken()]],
       email: [null,
         [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')],
         [this.validateEmailNotTaken()]
@@ -36,8 +37,12 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     this.loading = true;
     this.accountService.register(this.registerForm.value).subscribe(
-      () => {
-      this.router.navigateByUrl('/shop');
+      (res) => {
+        if (res)
+        {
+          const navigationExtras: NavigationExtras = { state: this.registerForm.get('email').value };
+          this.router.navigate(['/account/requestSuccess'], navigationExtras);
+        }
       },
       (error) => {
       console.error(error);

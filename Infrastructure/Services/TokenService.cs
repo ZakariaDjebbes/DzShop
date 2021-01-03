@@ -23,7 +23,7 @@ namespace Infrastructure.Services
 
 		public string CreateToken(AppUser user)
 		{
-			double tokenExpiry = Convert.ToDouble(_config["Token:Expiry"]);
+			double tokenExpiry = Convert.ToDouble(_config["Token:ExpiryInMinutes"]);
 
 			var claims = new List<Claim>()
 			{
@@ -37,7 +37,7 @@ namespace Infrastructure.Services
 			var tokenDesc = new SecurityTokenDescriptor
 			{
 				Subject = new ClaimsIdentity(claims),
-				Expires = DateTime.Now.AddDays(tokenExpiry),
+				Expires = DateTime.Now.AddMinutes(tokenExpiry),
 				SigningCredentials = creds,
 				Issuer = _config["Token:Issuer"]
 			};

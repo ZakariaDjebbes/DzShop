@@ -1,0 +1,26 @@
+<div class="container" *ngIf="isConfirmed !== null">
+    <ng-container *ngIf="!isConfirmed">
+        <div class="mt-5 text-center">
+            <div class="mt-3">
+                <div class="icon">
+                    <i class="fa fa-exclamation-circle text-danger fa-10x d-block"></i>
+                </div>
+                <h3>We couldn't confirm your email address</h3>
+                <p>Your email address has not been confirmed, please click this button to receive a new confirmation link</p>
+                <a routerLink="/account/requestEmailConfirmation" class="btn btn-large btn-primary">Confirm your email address</a>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="isConfirmed">
+        <div class="mt-5 text-center">
+            <div class="mt-3">
+                <div class="icon">
+                    <i class="fa fa-envelope text-success fa-10x d-block"></i>
+                </div>
+                <h3>Your email adress has been correctly confirmed!</h3>
+                <p>You can now login to your account</p>
+                <a routerLink="/account/login" class="btn btn-large btn-primary">Login to your account</a>
+            </div>
+        </div>
+    </ng-container>
+</div>

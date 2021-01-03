@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using API.Dtos;
 using AutoMapper;
 using Core.Entities;
@@ -19,7 +20,7 @@ namespace API.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<CustomerBasket>> GetBasketById(string id)
+		public async Task<ActionResult<CustomerBasket>> GetBasketById([Required] string id)
 		{
 			var basket = await _basketRepository.GetBasketAsync(id);
 
@@ -36,7 +37,7 @@ namespace API.Controllers
 		}
 
 		[HttpDelete]
-		public async Task DeleteBasket(string id)
+		public async Task DeleteBasket([Required] string id)
 		{
 			await _basketRepository.DeleteBasketAsync(id);
 		}

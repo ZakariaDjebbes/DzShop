@@ -13,6 +13,9 @@
                 <a class="text-primary" href="">Forgot your password?</a>
             </div>
             <div class="form-group">
+                <a class="text-primary" routerLink="/account/requestEmailConfirmation">Confirm your email address?</a>
+            </div>
+            <div class="form-group">
                 <a class="text-primary" routerLink="/account/register">Don't have an account? Sign up!</a>
             </div>
             <button [disabled]="loginForm.invalid || loading" class="btn btn-lg btn-primary btn-block mb-3" type="submit">Sign in <i *ngIf="loading" class="fa fa-spin fa-spinner"></i></button>

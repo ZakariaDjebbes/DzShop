@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using API.Dtos;
 using AutoMapper;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using API.Extensions;
 using API.Errors;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Controllers
 {
@@ -51,7 +51,7 @@ namespace API.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderToReturnDto>> GetOrderById(int id)
+        public async Task<ActionResult<OrderToReturnDto>> GetOrderById([Required] int id)
         {
             var email = HttpContext.User?.GetEmailFromClaims();
             var order = await _orderService.GetOrderByIdAsync(id, email);
@@ -70,7 +70,7 @@ namespace API.Controllers
         }
 
         [HttpGet("deliveryMethod/{id}")]
-        public async Task<ActionResult<IReadOnlyList<DeliveryMethod>>> GetDeliveryMethod(int id)
+        public async Task<ActionResult<IReadOnlyList<DeliveryMethod>>> GetDeliveryMethod([Required] int id)
         {
             var method = await _orderService.GetDeliveryMethodAsync(id);
 

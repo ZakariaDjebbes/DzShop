@@ -8,7 +8,7 @@
                 <div class="col">
                     <h3>
                         {{product.name}} 
-                        <span class="float-right">
+                        <span class="float-right" *ngIf="product.reviewsAverage > 0">
                             <rating [ngModel]="product.reviewsAverage" [disabled]="true" [readonly]="true" style="color: #EB6864;font-size: 25px;"></rating>
                         </span>
                     </h3>

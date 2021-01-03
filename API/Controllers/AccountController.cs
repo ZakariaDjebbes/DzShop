@@ -1,6 +1,5 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
+﻿using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos;
 using API.Errors;
@@ -11,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using API.Extensions;
 using AutoMapper;
+using Microsoft.AspNetCore.WebUtilities;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Controllers
 {
@@ -20,16 +21,19 @@ namespace API.Controllers
         private readonly SignInManager<AppUser> _signIn;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
+        private readonly IEmailSenderService _emailSender;
 
         public AccountController(UserManager<AppUser> userManager,
             SignInManager<AppUser> signIn,
             ITokenService tokenService,
-            IMapper mapper)
+            IMapper mapper,
+            IEmailSenderService emailSender)
         {
             _userManager = userManager;
             _signIn = signIn;
             _tokenService = tokenService;
             _mapper = mapper;
+            _emailSender = emailSender;
         }
 
         [HttpGet]
@@ -47,13 +51,13 @@ namespace API.Controllers
         }
 
         [HttpGet("emailExists")]
-        public async Task<ActionResult<bool>> CheckEmailExist([FromQuery] string email)
+        public async Task<ActionResult<bool>> CheckEmailExist([Required][FromQuery] string email)
         {
             return await _userManager.FindByEmailAsync(email) != null;
         }
 
         [HttpGet("userExists")]
-        public async Task<ActionResult<bool>> CheckUserExist([FromQuery] string username)
+        public async Task<ActionResult<bool>> CheckUserExist([FromQuery][Required] string username)
         {
             return await _userManager.FindByNameAsync(username) != null;
         }
@@ -141,8 +145,12 @@ namespace API.Controllers
 
             if (!result.Succeeded)
             {
-                if(result.IsLockedOut)
+                if (result.IsLockedOut)
                     return Unauthorized(new ApiResponse(401, "Too many failed attemps to login, please try again later"));
+                else if (result.IsNotAllowed)
+                {
+                    return Unauthorized(new ApiResponse(401, "Your email address isn't verfied"));
+                }
                 else
                     return Unauthorized(new ApiResponse(401));
             }
@@ -155,31 +163,50 @@ namespace API.Controllers
             };
         }
 
+        [HttpGet("confirmEmail")]
+        public async Task<IActionResult> EmailConfirmation([FromQuery] [Required] [EmailAddress] string email, [FromQuery] [Required] string token)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return BadRequest(new ApiResponse(400, "This email address doesn't exist"));
+            
+            var decodedToken = WebEncoders.Base64UrlDecode(token);
+            var resultToken = Encoding.UTF8.GetString(decodedToken);
+            var result = await _userManager.ConfirmEmailAsync(user, resultToken);
+            if (!result.Succeeded)
+            {
+                return new BadRequestObjectResult(new ApiValidationErrorResponse
+                {
+                    Errors = result.Errors.Select(x => x.Description)
+                });
+            }
+
+            return Ok(true);
+        }
+
+        [HttpGet("requestConfirmationEmail")] 
+        public async Task<IActionResult> RequestEmailConfirmation([FromQuery] [Required] [EmailAddress] string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if(user == null)
+                return BadRequest(new ApiResponse(400, "This email address doesn't exist"));
+
+            if (user.EmailConfirmed)
+                return BadRequest(new ApiResponse(400, "This email address is already confirmed"));
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            byte[] tokenBytes = Encoding.UTF8.GetBytes(token);
+            var encodedToken = WebEncoders.Base64UrlEncode(tokenBytes);
+           
+            await _emailSender.SendConfirmationEmailAsync(user.Email, encodedToken, user.UserName);
+
+            return Ok();
+        }
+
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-            if (CheckEmailExist(registerDto.Email).Result.Value)
-            {
-                return new BadRequestObjectResult(new ApiValidationErrorResponse
-                {
-                    Errors = new[]
-                    {
-                        "Email already in use"
-                    }
-                });
-            }
-
-            if (CheckUserExist(registerDto.UserName).Result.Value)
-            {
-                return new BadRequestObjectResult(new ApiValidationErrorResponse
-                {
-                    Errors = new[]
-                    {
-                        "Username already in use"
-                    }
-                });
-            }
-
             var user = new AppUser
             {
                 UserName = registerDto.UserName,
@@ -189,14 +216,20 @@ namespace API.Controllers
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
             if (!result.Succeeded)
-                return BadRequest(new ApiResponse(400));
-
-            return new UserDto
             {
-                UserName = user.UserName,
-                Token = _tokenService.CreateToken(user),
-                Email = user.Email
-            };
+                return new BadRequestObjectResult(new ApiValidationErrorResponse
+                {
+                    Errors = result.Errors.Select(x => x.Description)
+                });
+            }
+            
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            byte[] tokenBytes = Encoding.UTF8.GetBytes(token);
+            var encodedToken = WebEncoders.Base64UrlEncode(tokenBytes);
+           
+            await _emailSender.SendConfirmationEmailAsync(user.Email, encodedToken, user.UserName);
+
+            return Ok(true);
         }
     }
 }

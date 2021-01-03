@@ -90,7 +90,8 @@ namespace Infrastructure.Data
                             City = "Constantine",
                             ZipCode = "12345",
                             Country = "Algeria"
-                        }
+                        },
+                        EmailConfirmed = true
                     };
 
                     await userManager.CreateAsync(user, "zakaria159");
