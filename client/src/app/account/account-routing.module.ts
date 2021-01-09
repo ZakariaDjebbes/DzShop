@@ -8,6 +8,8 @@ import { AuthGuard } from '../core/guards/auth.guard';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { RequestEmailConfirmationComponent } from './request-email-confirmation/request-email-confirmation.component';
 import { RequetSuccessComponent } from './requet-success/requet-success.component';
+import { RequestResetPasswordComponent } from './request-reset-password/request-reset-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, data: { breadcrumb: 'Login' }},
@@ -15,6 +17,8 @@ const routes: Routes = [
   {path: 'confirmEmail', component: ConfirmEmailComponent,  data: { breadcrumb: 'Confirm Email' }},
   {path: 'requestEmailConfirmation', component: RequestEmailConfirmationComponent,  data: { breadcrumb: 'Request Email Confirmation' }},
   {path: 'requestSuccess', component: RequetSuccessComponent,  data: { breadcrumb: 'Your request is successful' }},
+  {path: 'requestResetPassword', component: RequestResetPasswordComponent,  data: { breadcrumb: 'Reset your password' }},
+  {path: 'resetPassword', component: ResetPasswordComponent,  data: { breadcrumb: 'Reset your password' }},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],  data: { breadcrumb: 'Register' }}
 ];
 

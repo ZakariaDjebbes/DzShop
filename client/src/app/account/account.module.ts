@@ -8,11 +8,13 @@ import { ProfileComponent } from './profile/profile.component';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { RequestEmailConfirmationComponent } from './request-email-confirmation/request-email-confirmation.component';
 import { RequetSuccessComponent } from './requet-success/requet-success.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RequestResetPasswordComponent } from './request-reset-password/request-reset-password.component';
 
 
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, ProfileComponent, ConfirmEmailComponent, RequestEmailConfirmationComponent, RequetSuccessComponent],
+  declarations: [LoginComponent, RegisterComponent, ProfileComponent, ConfirmEmailComponent, RequestEmailConfirmationComponent, RequetSuccessComponent, ResetPasswordComponent, RequestResetPasswordComponent],
   imports: [
     CommonModule,
     AccountRoutingModule,

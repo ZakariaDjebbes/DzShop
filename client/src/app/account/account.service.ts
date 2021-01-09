@@ -26,6 +26,10 @@ export class AccountService {
     return this.http.get<boolean>(this.baseUrl + 'account/confirmEmail', {params});
   }
 
+  public resetPassword(values: any): Observable<boolean> {
+    return this.http.get<boolean>(this.baseUrl + 'account/resetPassword', {params: values});
+  }
+
   // tslint:disable-next-line: typedef
   public login(values: any) {
     return this.http.post<IUser>(this.baseUrl + 'account/login', values)
@@ -51,6 +55,15 @@ export class AccountService {
     };
 
     return this.http.get(this.baseUrl + 'account/requestConfirmationEmail', { params });
+  }
+
+  public requestPasswordReset(email: string): Observable<any>
+  {
+    const params = {
+      email
+    };
+
+    return this.http.get(this.baseUrl + 'account/requestPasswordReset', { params });
   }
 
   // tslint:disable-next-line: typedef

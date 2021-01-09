@@ -1,26 +1,26 @@
 [
   {
     "Id": 1,
-    "Name": "Angular"
+    "Name": "Blizzard"
   },
   {
     "Id": 2,
-    "Name": "NetCore"
+    "Name": "Riot games"
   },
   {
     "Id": 3,
-    "Name": "VS Code"
+    "Name": "Epic games"
   },
   {
     "Id": 4,
-    "Name": "React"
+    "Name": "Ubisoft"
   },
   {
     "Id": 5,
-    "Name": "Typescript"
+    "Name": "Activision"
   },
   {
     "Id": 6,
-    "Name": "Redis"
+    "Name": "EA games"
   }
 ]

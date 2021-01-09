@@ -184,6 +184,28 @@ namespace API.Controllers
             return Ok(true);
         }
 
+        [HttpGet("resetPassword")]
+        public async Task<IActionResult> PasswordReset([FromQuery] ResetPasswordDto resetPasswordDto)
+        {
+            var user = await _userManager.FindByEmailAsync(resetPasswordDto.Email);
+            if (user == null)
+                return BadRequest(new ApiResponse(400, "User not found"));
+            
+            var decodedToken = WebEncoders.Base64UrlDecode(resetPasswordDto.Token);
+            var resultToken = Encoding.UTF8.GetString(decodedToken);
+            var result = await _userManager.ResetPasswordAsync(user, resultToken, resetPasswordDto.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return new BadRequestObjectResult(new ApiValidationErrorResponse
+                {
+                    Errors = result.Errors.Select(x => x.Description)
+                });
+            }
+
+            return Ok(true);
+        }
+
         [HttpGet("requestConfirmationEmail")] 
         public async Task<IActionResult> RequestEmailConfirmation([FromQuery] [Required] [EmailAddress] string email)
         {
@@ -200,6 +222,25 @@ namespace API.Controllers
             var encodedToken = WebEncoders.Base64UrlEncode(tokenBytes);
            
             await _emailSender.SendConfirmationEmailAsync(user.Email, encodedToken, user.UserName);
+
+            return Ok();
+        }
+
+        [HttpGet("requestPasswordReset")]
+        public async Task<IActionResult> RequestPasswordReset([FromQuery] [Required] [EmailAddress] string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if(user == null)
+            {
+                return BadRequest(new ApiResponse(400, "This email does not exist"));
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            byte[] tokenBytes = Encoding.UTF8.GetBytes(token);
+            var encodedToken = WebEncoders.Base64UrlEncode(tokenBytes);
+
+            await _emailSender.SendPasswordResetEmailAsync(user.Email, encodedToken, user.UserName);
 
             return Ok();
         }

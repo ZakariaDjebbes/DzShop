@@ -17,7 +17,7 @@ namespace Infrastructure.Services
             _config = config;
 
             Configuration.Default.ApiKey.Add("api-key", _config["EmailConfiguration:ApiKey"]);
-            
+
             emailsApi = new TransactionalEmailsApi();
         }
 
@@ -29,7 +29,20 @@ namespace Infrastructure.Services
                     new SendSmtpEmailTo(to)
                 },
                 templateId: int.Parse(_config["EmailConfiguration:ConfirmEmailTemplateId"]),
-                _params: new {validationToken = token, email = to, username = username}
+                _params: new { validationToken = token, email = to, username = username }
+            );
+            CreateSmtpEmail result = await emailsApi.SendTransacEmailAsync(email);
+        }
+
+        public async Task SendPasswordResetEmailAsync(string to, string token, string username)
+        {
+            SendSmtpEmail email = new SendSmtpEmail(
+                sender: new SendSmtpEmailSender(_config["EmailConfiguration:FromName"], _config["EmailConfiguration:FromEmail"]),
+                to: new System.Collections.Generic.List<SendSmtpEmailTo> {
+                    new SendSmtpEmailTo(to)
+                },
+                templateId: int.Parse(_config["EmailConfiguration:PasswordChangeTemplateId"]),
+                _params: new { validationToken = token, email = to, username = username }
             );
             CreateSmtpEmail result = await emailsApi.SendTransacEmailAsync(email);
         }

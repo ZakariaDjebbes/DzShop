@@ -26,6 +26,11 @@ export class LoadingInterceptor implements HttpInterceptor {
       return next.handle(request).pipe(delay(1000));
     }
 
+    if (request.method === 'GET' && (request.url.includes('requestPasswordReset') || request.url.includes('requestConfirmationEmail')))
+    {
+      return next.handle(request).pipe(delay(1000));
+    }
+
     if (request.method === 'DELETE')
     {
       return next.handle(request);

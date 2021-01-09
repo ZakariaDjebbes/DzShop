@@ -34,7 +34,7 @@ namespace API
 					.AllowAnyMethod()
 					.AllowAnyHeader()
 					.AllowCredentials()
-					.WithOrigins("https://localhost:4200");
+					.WithOrigins("https://localhost:4200").WithOrigins("http://127.0.0.1:5500");
 				});
 			});
 			services.AddAutoMapper(typeof(MappingProfiles));
