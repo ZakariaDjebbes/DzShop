@@ -2,6 +2,7 @@ using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Core.Interfaces;
+using Core.Interfaces.Services;
 using StackExchange.Redis;
 
 namespace Infrastructure.Services

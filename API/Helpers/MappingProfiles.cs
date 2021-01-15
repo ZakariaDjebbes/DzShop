@@ -1,4 +1,5 @@
-﻿using API.Dtos;
+﻿using System.Linq;
+using API.Dtos;
 using AutoMapper;
 using Core.Entities;
 using Core.Entities.Order;
@@ -17,6 +18,8 @@ namespace API.Helpers
 			CreateMap<CustomerBasketDto, CustomerBasket>().ReverseMap();
 			CreateMap<BasketItemDto, BasketItem>();
 			CreateMap<AddressDto, Address>();
+			CreateMap<Core.Entities.Identity.AppUser, UserWithRolesDto>()
+			.ForMember(o => o.UserRoles, o => o.MapFrom(s => s.UserRoles.Select(x => x.Role.Name)));
 			CreateMap<Order, OrderToReturnDto>()
 				.ForMember(o => o.DeliveryMethod, o => o.MapFrom(s => s.DeliveryMethod.ShortName))
 				.ForMember(o => o.ShippingPrice, o => o.MapFrom(s => s.DeliveryMethod.Price));

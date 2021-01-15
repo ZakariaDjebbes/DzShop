@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using API.Dtos;
 using AutoMapper;
 using Core.Entities;
-using Core.Interfaces;
+using Core.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using API.Dtos;
 using API.Errors;
 using Core.Entities.Identity;
-using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +11,7 @@ using API.Extensions;
 using AutoMapper;
 using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
+using Core.Interfaces.Services;
 
 namespace API.Controllers
 {
@@ -46,7 +46,7 @@ namespace API.Controllers
             {
                 Email = user.Email,
                 UserName = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = await _tokenService.CreateToken(user)
             };
         }
 
@@ -109,7 +109,7 @@ namespace API.Controllers
                 {
                     Email = user.Email,
                     UserName = user.UserName,
-                    Token = _tokenService.CreateToken(user)
+                    Token = await _tokenService.CreateToken(user)
                 };
             }
 
@@ -159,7 +159,7 @@ namespace API.Controllers
             {
                 Email = user.Email,
                 UserName = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = await _tokenService.CreateToken(user)
             };
         }
 

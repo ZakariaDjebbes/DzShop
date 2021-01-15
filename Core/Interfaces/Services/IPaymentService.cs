@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Core.Entities;
 using Core.Entities.Order;
 
-namespace Core.Interfaces
+namespace Core.Interfaces.Services
 {
     public interface IPaymentService
     {

@@ -1,0 +1,58 @@
+[
+    {
+        "UserName": "Zakaria",
+        "Email": "zakaria.djebbes@gmail.com",
+        "Address":
+        {
+            "FirstName": "Zakaria",
+            "LastName": "Djebbes",
+            "Street": "250 Logement",
+            "City": "Constantine",
+            "ZipCode": "12345",
+            "Country": "Algeria"
+        },
+        "EmailConfirmed": true
+    },
+    {
+        "UserName": "Viego",
+        "Email": "itachiuchiwa03@gmail.com",
+        "Address":
+        {
+            "FirstName": "Viego",
+            "LastName": "Ruined",
+            "Street": "The shadow isles",
+            "City": "Marabounta",
+            "ZipCode": "954621",
+            "Country": "Runeterra"
+        },
+        "EmailConfirmed": false
+    },
+    {
+        "UserName": "Admin",
+        "Email": "orochi255@hotmail.fr",
+        "Address":
+        {
+            "FirstName": "Administrator",
+            "LastName": "Administratior",
+            "Street": "Administratior",
+            "City": "Administratior",
+            "ZipCode": "000000",
+            "Country": "Administratior"
+        },
+        "EmailConfirmed": true
+    },
+    {
+        "UserName": "Moderator",
+        "Email": "briquedelaitbleu@gmail.com",
+        "Address":
+        {
+            "FirstName": "Moderator",
+            "LastName": "Moderator",
+            "Street": "Moderator",
+            "City": "Moderator",
+            "ZipCode": "111111",
+            "Country": "Moderator"
+        },
+        "EmailConfirmed": true
+    }
+]

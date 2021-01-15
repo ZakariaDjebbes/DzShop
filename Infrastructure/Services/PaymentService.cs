@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Core.Entities;
 using Core.Entities.Order;
 using Core.Interfaces;
+using Core.Interfaces.Repositories;
+using Core.Interfaces.Services;
 using Core.Specifications;
 using Microsoft.Extensions.Configuration;
 using Stripe;

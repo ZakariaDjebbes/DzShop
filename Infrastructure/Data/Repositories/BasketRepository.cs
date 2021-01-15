@@ -2,11 +2,11 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using Core.Entities;
-using Core.Interfaces;
+using Core.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 
-namespace Infrastructure.Data
+namespace Infrastructure.Data.Repositories
 {
 	public class BasketRepository : IBasketRepository
 	{

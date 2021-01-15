@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Core.Entities;
-using Core.Interfaces;
+using Core.Interfaces.Repositories;
+using Core.Interfaces.Services;
 
 namespace Infrastructure.Services
 {

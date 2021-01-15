@@ -1,9 +1,7 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using Core.Entities.Identity;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,10 +15,12 @@ namespace API.Extensions
         {
             var builder = services.AddIdentityCore<AppUser>().AddDefaultTokenProviders();
 
-            builder = new IdentityBuilder(builder.UserType, builder.Services);
+            builder = new IdentityBuilder(builder.UserType, typeof(AppRole), builder.Services);
             builder.AddEntityFrameworkStores<StoreContext>();
+            builder.AddRoleValidator<RoleValidator<AppRole>>();
+            builder.AddRoleManager<RoleManager<AppRole>>();
             builder.AddSignInManager<SignInManager<AppUser>>();
-
+            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -33,6 +33,11 @@ namespace API.Extensions
                         ValidateAudience = false,
                     };
                 });
+
+            services.AddAuthorization(opts => {
+                opts.AddPolicy("RequireAdministration", policy => policy.RequireRole("Administrator"));
+                opts.AddPolicy("RequireModeration", policy => policy.RequireRole("Moderator", "Administrator"));
+            });
 
             services.Configure<IdentityOptions>(options =>
             {
